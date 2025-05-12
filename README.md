@@ -27,3 +27,20 @@ make
 
 ```
 
+
+### Or you can simply run the following command to build and run the project
+
+```bash
+#build the project
+./scripts/build.sh
+
+#run the project
+./scripts/run.sh
+
+#build and run the project
+./scripts/launch.sh
+```
+```
+```
+```
+
