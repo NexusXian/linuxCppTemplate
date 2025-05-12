@@ -40,7 +40,4 @@ make
 #build and run the project
 ./scripts/launch.sh
 ```
-```
-```
-```
 
