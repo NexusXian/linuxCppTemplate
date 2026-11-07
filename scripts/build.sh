@@ -25,7 +25,12 @@ binFolderPath="./bin"
 # Configure using the default preset (CMakePresets.json, vcpkg toolchain)
 cmake --preset default
 
-# Check if CMake configuration was successful
+# Keep compile_commands.json symlink at project root for clangd
+if [ -f "${buildFolderPath}/compile_commands.json" ]; then
+  ln -sf build/compile_commands.json ./compile_commands.json
+fi
+
+ Check if CMake configuration was successful
 if [ $? -eq 0 ]; then
   # Build the project using CMake
   cmake --build --preset default
@@ -36,3 +41,4 @@ else
   echo "CMake configuration failed."
   exit 1
 fi
+
