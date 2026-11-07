@@ -4,8 +4,35 @@
 ### Environment Requirements
 
 - Unix/Linux system
-- CMake >= 3.10
+- CMake >= 3.21
 - GCC or Clang, supporting C++17 standard
+- [vcpkg](https://github.com/microsoft/vcpkg), with `VCPKG_ROOT` pointing to its checkout:
+
+```bash
+git clone https://github.com/microsoft/vcpkg.git ~/vcpkg
+~/vcpkg/bootstrap-vcpkg.sh
+export VCPKG_ROOT=~/vcpkg
+```
+
+### Dependencies
+
+Third-party dependencies are managed by vcpkg in manifest mode (see `vcpkg.json`). `fmt` is included as an example.
+
+To add a dependency, edit `vcpkg.json`:
+
+```json
+"dependencies": [
+  "fmt",
+  "spdlog"
+]
+```
+
+Then in `CMakeLists.txt`:
+
+```cmake
+find_package(spdlog CONFIG REQUIRED)
+target_link_libraries(main PRIVATE spdlog::spdlog)
+```
 
 ### Compilation Steps
 
@@ -14,14 +41,11 @@
 git clone https://github.com/NexusXian/linuxCppTemplate.git
 cd linuxCppTemplate
 
-# Create build directory
-cd build
-
-# Generate Makefile
-cmake ..
+# Configure (uses CMakePresets.json with the vcpkg toolchain)
+cmake --preset default
 
 # Compile the project
-make
+cmake --build --preset default
 
 # The generated executable is located in the bin/ directory
 

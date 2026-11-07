@@ -17,15 +17,12 @@ binFolderPath="./bin"
 [ ! -d "$buildFolderPath" ] && mkdir -p "$buildFolderPath" && echo "build folder created."
 [ ! -d "$binFolderPath" ] && mkdir -p "$binFolderPath" && echo "bin folder created."
 
-# Configure (specify output to bin)
-cmake -G "Unix Makefiles" \
-  -D CMAKE_CXX_COMPILER=/usr/bin/g++ \
-  -D CMAKE_RUNTIME_OUTPUT_DIRECTORY="${currentDirectory}/bin" \
-  -S . -B "$buildFolderPath"
+# Configure using the default preset (CMakePresets.json, vcpkg toolchain)
+cmake --preset default
 
 # If configuration is successful, then build
 if [ $? -eq 0 ]; then
-  cmake --build "$buildFolderPath" --config DEBUG
+  cmake --build --preset default
   echo "Build completed."
 
   # Try to run bin/main
